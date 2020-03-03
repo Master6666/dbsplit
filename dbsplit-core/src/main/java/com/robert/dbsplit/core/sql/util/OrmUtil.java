@@ -52,9 +52,9 @@ public abstract class OrmUtil {
 				continue;
 			}
 
-			if (lower)
+			if (lower) {
 				sb.append(Character.toLowerCase(name.charAt(i)));
-			else {
+			} else {
 				sb.append(Character.toUpperCase(name.charAt(i)));
 				lower = true;
 			}
@@ -67,8 +67,9 @@ public abstract class OrmUtil {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < count; i++) {
-			if (i != 0)
+			if (i != 0) {
 				sb.append(",");
+			}
 			sb.append("?");
 		}
 

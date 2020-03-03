@@ -30,9 +30,9 @@ public class SplitSqlParserDefImpl implements SplitSqlParser {
 
 		// Don't use if contains then get, race conditon may happens due to LRU
 		// map
-		if (splitSqlStructure != null)
+		if (splitSqlStructure != null) {
 			return splitSqlStructure;
-
+		}
 		splitSqlStructure = new SplitSqlStructure();
 
 		String dbName = null;
@@ -54,42 +54,46 @@ public class SplitSqlParserDefImpl implements SplitSqlParser {
 				break;
 			}
 
-			if (tok.name != null)
+			if (tok.name != null) {
 				switch (tok.name) {
-				case "SELECT":
-					splitSqlStructure.setSqlType(SqlType.SELECT);
-					break;
+					case "SELECT":
+						splitSqlStructure.setSqlType(SqlType.SELECT);
+						break;
 
-				case "INSERT":
-					splitSqlStructure.setSqlType(SqlType.INSERT);
-					break;
+					case "INSERT":
+						splitSqlStructure.setSqlType(SqlType.INSERT);
+						break;
 
-				case "UPDATE":
-					inProcess = true;
-					splitSqlStructure.setSqlType(SqlType.UPDATE);
-					break;
-
-				case "DELETE":
-					splitSqlStructure.setSqlType(SqlType.DELETE);
-					break;
-
-				case "INTO":
-					if (SqlType.INSERT.equals(splitSqlStructure.getSqlType()))
+					case "UPDATE":
 						inProcess = true;
-					break;
+						splitSqlStructure.setSqlType(SqlType.UPDATE);
+						break;
 
-				case "FROM":
-					if (SqlType.SELECT.equals(splitSqlStructure.getSqlType())
-							|| SqlType.DELETE.equals(splitSqlStructure
-									.getSqlType()))
-						inProcess = true;
-					break;
+					case "DELETE":
+						splitSqlStructure.setSqlType(SqlType.DELETE);
+						break;
+
+					case "INTO":
+						if (SqlType.INSERT.equals(splitSqlStructure.getSqlType())) {
+							inProcess = true;
+						}
+						break;
+
+					case "FROM":
+						if (SqlType.SELECT.equals(splitSqlStructure.getSqlType())
+								|| SqlType.DELETE.equals(splitSqlStructure
+								.getSqlType())) {
+							inProcess = true;
+						}
+						break;
 				}
+			}
 
-			if (sebsequent)
+			if (sebsequent) {
 				sbSebsequentPart.append(
 						tok == Token.IDENTIFIER ? lexer.stringVal() : tok.name)
 						.append(" ");
+			}
 
 			if (inProcess) {
 				if (dbName == null && tok == Token.IDENTIFIER) {
@@ -104,16 +108,18 @@ public class SplitSqlParserDefImpl implements SplitSqlParser {
 				}
 			}
 
-			if (previous)
+			if (previous) {
 				sbPreviousPart.append(
 						tok == Token.IDENTIFIER ? lexer.stringVal() : tok.name)
 						.append(" ");
+			}
 
 		} while (true);
 
-		if (StringUtils.isEmpty(dbName) || StringUtils.isEmpty(tableName))
+		if (StringUtils.isEmpty(dbName) || StringUtils.isEmpty(tableName)) {
 			throw new NotSupportedException("The split sql is not supported: "
 					+ sql);
+		}
 
 		splitSqlStructure.setDbName(dbName);
 		splitSqlStructure.setTableName(tableName);

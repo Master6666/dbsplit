@@ -59,10 +59,10 @@ public class SplitSqlStructure {
 		if (sqlType == null || StringUtils.isEmpty(dbName)
 				|| StringUtils.isEmpty(tableName)
 				|| StringUtils.isEmpty(previousPart)
-				|| StringUtils.isEmpty(sebsequentPart))
+				|| StringUtils.isEmpty(sebsequentPart)){
 			throw new IllegalStateException(
 					"The split SQL should be constructed after the SQL is parsed completely.");
-
+			}
 		StringBuffer sb = new StringBuffer();
 		sb.append(previousPart).append(" ");
 		sb.append(dbName).append("_").append(dbNo);

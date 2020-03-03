@@ -1,6 +1,6 @@
 #!/bin/bash
 
-insts=localhost:3306,localhost:3306
+insts=47.100.59.206:3306,47.100.59.206:3306
 
 db_prefix=test_db
 table_sql_file=table.sql
@@ -95,7 +95,8 @@ main() {
 
 	insts_arr=(${insts//,/ })  
 	insts_num=${#insts_arr[@]} 
-	
+
+
 	for ((i=0;i<$insts_num;i++)); do
 	  build_inst ${insts_arr[$i]} $i
 	done

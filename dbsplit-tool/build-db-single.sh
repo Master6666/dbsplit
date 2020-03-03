@@ -1,6 +1,6 @@
 #!/bin/bash
 
-inst=localhost:3306
+inst=47.100.59.206:3306
 
 db=test_db
 table_sql_file=table.sql
@@ -9,11 +9,11 @@ user_name=test_user
 password=test_password
 
 root_user_name=root
-root_password=youarebest
+root_password=Yang123456!qazwsx
 
 debug=FALSE
 
-conn_hosts=localhost
+conn_hosts=%
 
 main() {
   echo "properties: inst=$inst db=$db table_sql_file=$table_sql_file user_name=$user_name password=$password root_user_name=$root_user_name root_password=$root_password conn_hosts=$conn_hosts"
